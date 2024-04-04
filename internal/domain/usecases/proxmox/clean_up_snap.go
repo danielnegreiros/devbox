@@ -35,9 +35,7 @@ func (u *SnapCleanUpUseCase) Execute(node string, snaps []SnapShotData) {
 	resSnaps = getWithExcludedSnaps(resSnaps, u.exclude)
 
 	for _, snap := range resSnaps {
-		log.Printf("Starting deleting snapshot: %s from VM: %s\n", snap.Name, snap.VmName)
 		u.deleteSnap(node, snap.Vmid, snap.Name)
-		log.Printf("Finished deleting snapshot: %s from VM: %s\n", snap.Name, snap.VmName)
 	}
 
 	if len(resSnaps) == 0 {

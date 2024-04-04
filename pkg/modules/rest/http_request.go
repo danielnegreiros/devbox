@@ -37,17 +37,15 @@ func (r *HttpRequest) Execute() (any, int) {
 		req.Header.Add(k, v)
 	}
 
-	log.Println(r.EndPoint)
-	log.Println(string(r.Body))
-
 	resp, err := client.Do(req)
 	errs.PanicIfErr(err)
 	defer resp.Body.Close()
 
 	contentBytes, err := io.ReadAll(resp.Body)
 	errs.PanicIfErr(err)
-	PanicIBadCode(resp.StatusCode, r.AcceptedCodes, contentBytes)
 
+	log.Printf("%s %s %d", req.Method, req.URL.Path, resp.StatusCode)
+	PanicIBadCode(resp.StatusCode, r.AcceptedCodes, contentBytes)
 
 	err = json.Unmarshal(contentBytes, r.Data)
 	errs.PanicIfErr(err)
