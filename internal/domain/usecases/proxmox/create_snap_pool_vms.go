@@ -28,8 +28,8 @@ func (u *CreateVmPoolSnapUseCase) Execute(node string) {
 	currentTime := time.Now().Format("2006-01-02__15_04_05")
 	snapName := "daily_" + currentTime
 
-	for _, vmid := range u.vmids{
-		
+	for _, vmid := range u.vmids {
+
 		httpReq := rest.HttpRequest{
 			Timeout:       10,
 			EndPoint:      fmt.Sprintf("%s/api2/json/nodes/%s/qemu/%s/snapshot", u.ticket.Host, node, vmid),
@@ -46,13 +46,12 @@ func (u *CreateVmPoolSnapUseCase) Execute(node string) {
 				"Content-Type":        "application/json",
 			},
 		}
-	
+
 		content, code := httpReq.Execute()
-		if code != http.StatusOK{
+		if code != http.StatusOK {
 			log.Panic(content)
 		}
 	}
 	log.Println("-------- END --------")
 
 }
-

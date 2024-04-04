@@ -7,13 +7,13 @@ import (
 )
 
 type hardenSshUseCase struct {
-	infra   ports.InfraRepo
+	infra  ports.InfraRepo
 	harden conf.HardenConf
 }
 
 func NewHardenSSHUseCase(infra ports.InfraRepo, harden conf.HardenConf) *hardenSshUseCase {
 	return &hardenSshUseCase{
-		infra: infra,
+		infra:  infra,
 		harden: harden,
 	}
 }

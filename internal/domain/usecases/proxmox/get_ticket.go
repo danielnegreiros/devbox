@@ -25,12 +25,12 @@ func NewGetTicketUseCase(credentials *entity.ProxmoxCredential) *GetTicketUseCas
 func (u *GetTicketUseCase) Execute() *entity.TicketData {
 
 	httpReq := rest.HttpRequest{
-		Timeout: 10,
-		EndPoint: fmt.Sprintf("%s/api2/json/access/ticket", u.credentials.Host),
-		Method: "POST",
-		Body: httpclient.ComposeCredentials(u.credentials.User, u.credentials.Pass),
+		Timeout:       10,
+		EndPoint:      fmt.Sprintf("%s/api2/json/access/ticket", u.credentials.Host),
+		Method:        "POST",
+		Body:          httpclient.ComposeCredentials(u.credentials.User, u.credentials.Pass),
 		AcceptedCodes: []int{200},
-		Data: &Response{},
+		Data:          &Response{},
 	}
 
 	content, _ := httpReq.Execute()

@@ -20,4 +20,3 @@ func TestGetTicket(t *testing.T) {
 
 	log.Println(result)
 }
-

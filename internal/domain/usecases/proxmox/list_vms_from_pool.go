@@ -9,35 +9,34 @@ import (
 )
 
 type Member struct {
-	Name      string `json:"name"`
-	VMID      int    `json:"vmid"`
-    // MaxDisk   int    `json:"maxdisk"`
-    // NetIn     int    `json:"netin"`
-    // Disk      int    `json:"disk"`
-    // DiskWrite int    `json:"diskwrite"`
-    // Uptime    int    `json:"uptime"`
-    // Template  int    `json:"template"`
-    // NetOut    int    `json:"netout"`
-    // MaxMem    int    `json:"maxmem"`
-    // ID        string `json:"id"`
-    // Mem       int    `json:"mem"`
-    // CPU       float64 `json:"cpu"`
-    // Status    string `json:"status"`
-    // MaxCPU    int    `json:"maxcpu"`
-    // Node      string `json:"node"`
-    // DiskRead  int    `json:"diskread"`
-    // Type      string `json:"type"`
+	Name string `json:"name"`
+	VMID int    `json:"vmid"`
+	// MaxDisk   int    `json:"maxdisk"`
+	// NetIn     int    `json:"netin"`
+	// Disk      int    `json:"disk"`
+	// DiskWrite int    `json:"diskwrite"`
+	// Uptime    int    `json:"uptime"`
+	// Template  int    `json:"template"`
+	// NetOut    int    `json:"netout"`
+	// MaxMem    int    `json:"maxmem"`
+	// ID        string `json:"id"`
+	// Mem       int    `json:"mem"`
+	// CPU       float64 `json:"cpu"`
+	// Status    string `json:"status"`
+	// MaxCPU    int    `json:"maxcpu"`
+	// Node      string `json:"node"`
+	// DiskRead  int    `json:"diskread"`
+	// Type      string `json:"type"`
 }
 
 type Data struct {
-    Members []Member `json:"members"`
-    PoolID  string   `json:"poolid"`
+	Members []Member `json:"members"`
+	PoolID  string   `json:"poolid"`
 }
 
 type ResponsePool struct {
-    Data Data `json:"data"`
+	Data Data `json:"data"`
 }
-
 
 type ListVMsFromPoolUseCase struct {
 	ticket *entity.TicketData

@@ -16,7 +16,7 @@ func CreateVmHandler(argsMap map[string]string) {
 
 	var ipconfig string
 	if argsMap["vm_ip"] != "" && argsMap["gateway"] != "" && argsMap["vm_netmask"] != "" {
-		ipconfig = fmt.Sprintf("ip=%s/%s,gw=%s", argsMap["vm_ip"],  argsMap["vm_netmask"], argsMap["gateway"])
+		ipconfig = fmt.Sprintf("ip=%s/%s,gw=%s", argsMap["vm_ip"], argsMap["vm_netmask"], argsMap["gateway"])
 	} else {
 		ipconfig = ""
 	}

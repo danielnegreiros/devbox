@@ -8,14 +8,13 @@ import (
 func TestGet(t *testing.T) {
 
 	httpReq := HttpRequest{
-		Timeout:  10,
-		EndPoint: "http://httpbin.org/get",
-		Method:   "GET",
-		Body:     []byte(`{"key": "value"}`),
-		Data:     &struct{}{},
+		Timeout:       10,
+		EndPoint:      "http://httpbin.org/get",
+		Method:        "GET",
+		Body:          []byte(`{"key": "value"}`),
+		Data:          &struct{}{},
 		AcceptedCodes: []int{200},
 	}
-
 
 	contentBytes, statusCode := httpReq.Execute()
 	if statusCode != httpReq.AcceptedCodes[0] {

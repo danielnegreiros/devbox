@@ -61,7 +61,7 @@ func (u *CreateVmUseCase) Execute() {
 	u.createVm()
 
 	if u.ciConfig.CiPassword != "" || u.ciConfig.CiUser != "" || u.ciConfig.Ipconfig != "" || u.ciConfig.SshKeysFile != "" {
-	u.configCloudInit()
+		u.configCloudInit()
 	}
 	u.start()
 

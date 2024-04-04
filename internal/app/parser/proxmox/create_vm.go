@@ -141,13 +141,27 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	argsMap["vm_template_id"] = vm_template_id
 	argsMap["vm_id"] = vm_id
 
-	if vm_pub_keys != "" { argsMap["vm_pub_keys"] = vm_pub_keys }
-	if vm_ip != "" { argsMap["vm_ip"] = vm_ip }
-	if vm_netmask != "" { argsMap["vm_netmask"] = vm_netmask }
-	if vm_name != "" { argsMap["vm_name"] = vm_name }
-	if vm_user != "" { argsMap["vm_user"] = vm_user }
-	if vm_pass != "" { argsMap["vm_pass"] = vm_pass }
-	if pool != "" { argsMap["pool"] = pool }
+	if vm_pub_keys != "" {
+		argsMap["vm_pub_keys"] = vm_pub_keys
+	}
+	if vm_ip != "" {
+		argsMap["vm_ip"] = vm_ip
+	}
+	if vm_netmask != "" {
+		argsMap["vm_netmask"] = vm_netmask
+	}
+	if vm_name != "" {
+		argsMap["vm_name"] = vm_name
+	}
+	if vm_user != "" {
+		argsMap["vm_user"] = vm_user
+	}
+	if vm_pass != "" {
+		argsMap["vm_pass"] = vm_pass
+	}
+	if pool != "" {
+		argsMap["pool"] = pool
+	}
 
 	return argsMap
 }

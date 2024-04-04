@@ -102,7 +102,6 @@ func ParseCreateSnapshotCommand(args []string) map[string]string {
 		os.Exit(1)
 	}
 
-
 	argsMap := make(map[string]string)
 
 	argsMap["endpoint"] = endpoint

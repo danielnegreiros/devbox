@@ -109,7 +109,7 @@ func ParseSnapshotCommand(args []string) map[string]string {
 		os.Exit(1)
 	}
 
-	if include == "all"{
+	if include == "all" {
 		include = ".*"
 	}
 

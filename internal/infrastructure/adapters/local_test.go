@@ -16,7 +16,7 @@ func TestLinuxLocal(t *testing.T) {
 		log.Panic(outputDTO.ErrMessage)
 	}
 
-	if outputDTO.Error != nil{
+	if outputDTO.Error != nil {
 		t.Error(outputDTO.Error)
 	}
 

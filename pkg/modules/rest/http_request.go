@@ -33,7 +33,7 @@ func (r *HttpRequest) Execute() (any, int) {
 		req.AddCookie(r.Cookie)
 	}
 
-	for k, v := range r.Header{
+	for k, v := range r.Header {
 		req.Header.Add(k, v)
 	}
 
