@@ -22,6 +22,15 @@ sudo wget -O /usr/local/bin/devbox https://github.com/danielnegreiros/devbox/rel
 sudo chmod +x /usr/local/bin/devbox
 ```
 
+- Configure Credentials 
+
+```bash
+export PROXMOX_ENDPOINT='https://192.168.0.99:8006'
+export PROXMOX_NODE='proxmox'
+export PROXMOX_USERNAME='root@pam'
+export PROXMOX_PASSWORD='<PASS>'
+```
+
 
 - Create first VM to be used as template
 
@@ -127,7 +136,7 @@ devbox proxmox --clean-up-snapshots -days 7 -include daily
 
 ___
 
-## 3. Unix
+## 3. Unix Use Cases
 
 To be completed
 
