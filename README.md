@@ -10,17 +10,19 @@ This code can be execute on local environment and on remote environment.
 
 Read desired use case documentation for more information and proper usage
 
-___
-
-
-## 2. Proxmox Use Cases
-
 - Installation
 
 ```bash
 sudo wget -O /usr/local/bin/devbox https://github.com/danielnegreiros/devbox/releases/download/v0.1.0/devbox
 sudo chmod +x /usr/local/bin/devbox
 ```
+
+___
+
+
+## 2. Proxmox Use Cases
+
+
 
 - Configure Credentials 
 
