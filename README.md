@@ -15,6 +15,13 @@ ___
 
 ## 2. Proxmox Use Cases
 
+- Installation
+
+```bash
+sudo wget -O /usr/local/bin/devbox https://github.com/danielnegreiros/devbox/releases/download/v0.1.0/devbox
+sudo chmod +x /usr/local/bin/devbox
+```
+
 
 - Create first VM to be used as template
 
@@ -94,7 +101,7 @@ devbox proxmox --create-snapshots -pool test_pool
 - Delete snapshots starting with daily older than 7 days for all VMs.
 
 ```bash
-devbox proxmox --clean-up-snapshots -days -7 -include daily
+devbox proxmox --clean-up-snapshots -days 7 -include daily
 ```
 
 <details> <summary>Expand Logs</summary>  
