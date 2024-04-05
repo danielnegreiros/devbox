@@ -31,6 +31,7 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	var vm_pub_keys string
 	var vm_ip string
 	var vm_netmask string
+	var gateway string
 	var vm_template_id string
 	var vm_id string
 	var vm_name string
@@ -46,6 +47,7 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	templateCmd.StringVar(&vm_pub_keys, "vm_pub_keys", "", "ssh public key location for your user")
 	templateCmd.StringVar(&vm_ip, "vm_ip", "", "IP address to be configured in the VM")
 	templateCmd.StringVar(&vm_netmask, "vm_netmask", "", "Netmask in decimal format, example: 24")
+	templateCmd.StringVar(&gateway, "gateway", "", "Gateway IP")
 	templateCmd.StringVar(&vm_template_id, "vm_template_id", "", "Storage vm_netmask to store the template")
 	templateCmd.StringVar(&vm_id, "vm_id", "", "ID of the new Virtual Machine")
 	templateCmd.StringVar(&vm_name, "vm_name", "", "Name of the new Virtual Machine")
@@ -149,6 +151,9 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	}
 	if vm_netmask != "" {
 		argsMap["vm_netmask"] = vm_netmask
+	}
+	if gateway != "" {
+		argsMap["gateway"] = gateway
 	}
 	if vm_name != "" {
 		argsMap["vm_name"] = vm_name

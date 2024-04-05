@@ -23,7 +23,6 @@ func NewCreateVmPoolSnapUseCase(ticket *entity.TicketData, vmids []string) *Crea
 }
 
 func (u *CreateVmPoolSnapUseCase) Execute(node string) {
-	log.Println("-------- START --------")
 
 	currentTime := time.Now().Format("2006-01-02__15_04_05")
 	snapName := "daily_" + currentTime
@@ -52,6 +51,5 @@ func (u *CreateVmPoolSnapUseCase) Execute(node string) {
 			log.Panic(content)
 		}
 	}
-	log.Println("-------- END --------")
 
 }

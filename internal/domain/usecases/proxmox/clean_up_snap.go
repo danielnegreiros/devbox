@@ -28,7 +28,6 @@ func NewSnapCleanUpUseCase(ticket *entity.TicketData, days int, include string, 
 }
 
 func (u *SnapCleanUpUseCase) Execute(node string, snaps []SnapShotData) {
-	log.Println("-------- START --------")
 
 	resSnaps := getSnapsOlderThan(snaps, u.days)
 	resSnaps = getIncludedOnlySnaps(resSnaps, u.include)
@@ -42,7 +41,6 @@ func (u *SnapCleanUpUseCase) Execute(node string, snaps []SnapShotData) {
 		log.Println("No snapshots were found under requested filters")
 	}
 
-	log.Println("-------- END --------")
 }
 
 func getIncludedOnlySnaps(snaps []SnapShotData, include string) []SnapShotData {

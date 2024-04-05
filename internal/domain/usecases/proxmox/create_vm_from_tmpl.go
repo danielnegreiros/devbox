@@ -3,7 +3,6 @@ package proxmox
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
 	"net/url"
 	"os"
@@ -113,8 +112,7 @@ func (u *CreateVmUseCase) createPool() int {
 		},
 	}
 
-	content, code := httpReq.Execute()
-	log.Println(content)
+	_, code := httpReq.Execute()
 
 	return code
 }
@@ -139,8 +137,7 @@ func (u CreateVmUseCase) createVm() {
 		},
 	}
 
-	content, _ := httpReq.Execute()
-	log.Println(content)
+	httpReq.Execute()
 
 }
 
@@ -172,8 +169,7 @@ func (u CreateVmUseCase) configCloudInit() {
 		},
 	}
 
-	content, _ := httpReq.Execute()
-	log.Println(content)
+	httpReq.Execute()
 
 }
 
@@ -194,7 +190,5 @@ func (u CreateVmUseCase) start() {
 		},
 	}
 
-	content, _ := httpReq.Execute()
-	log.Println(content)
-
+	httpReq.Execute()
 }
