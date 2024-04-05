@@ -55,7 +55,6 @@ func (a *LinuxAdapter) ExecuteCommand(command string) ports.CommandOutputDTO {
 	defer session.Close()
 
 	stdout, stderr, err := runCommand(session, command)
-	log.Println("Done")
 	return ports.NewCommandOutputDTO(stdout, stderr, err == nil, err)
 
 }

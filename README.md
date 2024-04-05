@@ -33,26 +33,16 @@ devbox proxmox --create-template-cloud-init \
 <details> <summary>Expand Logs</summary>  
 
 ```bash
-2024/04/04 23:14:30 Starting command: mkdir -pv /tmp/cloudinit
-2024/04/04 23:14:30 Done
-2024/04/04 23:14:30 Starting command: wget -P /tmp/cloudinit/ https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
-2024/04/04 23:15:18 Done
-2024/04/04 23:15:18 Starting command: qm stop 1111
-2024/04/04 23:15:19 Done
-2024/04/04 23:15:19 Starting command: qm destroy 1111
-2024/04/04 23:15:19 Done
-2024/04/04 23:15:19 Starting command: qm create 1111 --memory 2048 --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci
-2024/04/04 23:15:20 Done
-2024/04/04 23:15:20 Starting command: qm set 1111 --scsi0 local:0,import-from=/tmp/cloudinit/jammy-server-cloudimg-amd64.img
-2024/04/04 23:15:23 Done
-2024/04/04 23:15:23 Starting command: qm set 1111 --ide2 local:cloudinit
-2024/04/04 23:15:24 Done
-2024/04/04 23:15:24 Starting command: qm set 1111 --boot order=scsi0
-2024/04/04 23:15:24 Done
-2024/04/04 23:15:24 Starting command: qm set 1111 --name ubuntu-tmpl
-2024/04/04 23:15:25 Done
-2024/04/04 23:15:25 Starting command: qm template 1111
-2024/04/04 23:15:26 Done
+2024/04/04 23:26:37 Starting command: mkdir -pv /tmp/cloudinit
+2024/04/04 23:26:37 Starting command: wget -P /tmp/cloudinit/ https://cloud-images.ubuntu.com/jammy/current/jammy-server-cloudimg-amd64.img
+2024/04/04 23:27:23 Starting command: qm stop 1111
+2024/04/04 23:27:23 Starting command: qm destroy 1111
+2024/04/04 23:27:24 Starting command: qm create 1111 --memory 2048 --net0 virtio,bridge=vmbr0 --scsihw virtio-scsi-pci
+2024/04/04 23:27:25 Starting command: qm set 1111 --scsi0 local:0,import-from=/tmp/cloudinit/jammy-server-cloudimg-amd64.img
+2024/04/04 23:27:27 Starting command: qm set 1111 --ide2 local:cloudinit
+2024/04/04 23:27:28 Starting command: qm set 1111 --boot order=scsi0
+2024/04/04 23:27:29 Starting command: qm set 1111 --name ubuntu-tmpl
+2024/04/04 23:27:29 Starting command: qm template 1111
 ``` 
 </details>
 <br />
@@ -76,23 +66,57 @@ devbox proxmox --create-vm \
 <details> <summary>Expand Logs</summary>  
 
 ```bash
-2024/04/04 23:21:23 POST /api2/json/access/ticket 200
-2024/04/04 23:21:23 GET /api2/json/pools 200
-2024/04/04 23:21:23 POST /api2/json/nodes/proxmox/qemu/1111/clone 200
-2024/04/04 23:21:23 PUT /api2/json/nodes/proxmox/qemu/1112/config 200
-2024/04/04 23:21:23 POST /api2/json/nodes/proxmox/qemu/1112/status/start 200
+2024/04/04 23:27:54 POST /api2/json/access/ticket 200
+2024/04/04 23:27:54 GET /api2/json/pools 200
+2024/04/04 23:27:54 POST /api2/json/nodes/proxmox/qemu/1111/clone 200
+2024/04/04 23:27:54 PUT /api2/json/nodes/proxmox/qemu/1112/config 200
+2024/04/04 23:27:54 POST /api2/json/nodes/proxmox/qemu/1112/status/start 200
+``` 
+</details>
+<br />
+
+- Create snapshots for all vms in a pool
+
+```bash
+devbox proxmox --create-snapshots -pool test_pool
+```
+
+<details> <summary>Expand Logs</summary>  
+
+```bash
+2024/04/04 23:28:51 POST /api2/json/access/ticket 200
+2024/04/04 23:28:51 GET /api2/json/pools/test_pool 200
+2024/04/04 23:28:51 POST /api2/json/nodes/proxmox/qemu/1112/snapshot 200
+``` 
+</details>
+<br />
+
+- Delete snapshots starting with daily older than 7 days for all VMs.
+
+```bash
+devbox proxmox --clean-up-snapshots -days -7 -include daily
+```
+
+<details> <summary>Expand Logs</summary>  
+
+```bash
+2024/04/04 23:30:27 POST /api2/json/access/ticket 200
+2024/04/04 23:30:27 GET /api2/json/nodes/proxmox/qemu 200
+2024/04/04 23:30:27 GET /api2/json/nodes/proxmox/qemu/1111/snapshot 200
+2024/04/04 23:30:27 DELETE /api2/json/nodes/proxmox/qemu/1112/snapshot/daily_2024-04-04__23_28_51 200
 ``` 
 </details>
 <br />
 
 
+- Configure crontab for automatic protection and cleanup
 
-To be completed
+```bash
+0 17 * * * devbox proxmox --create-snapshots -pool kubernetes
+0 17 * * * devbox proxmox --create-snapshots -pool prod
+0 18 * * * devbox proxmox --clean-up-snapshots -days 7 -include daily
+```
 
-| Environment | Use Case                    | Connection       | Documentation | Status                       |
-|-------------|-----------------------------|------------------|---------------|------------------------------|
-| Proxmox     | Clean Up Snapshots          | Remote API       | Link          | :white_check_mark:           |
-| Proxmox     | Create Cloud Init Templates | Local/Remote SSH | Link          | :white_check_mark:           |
 
 ___
 
