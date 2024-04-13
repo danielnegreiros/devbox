@@ -74,13 +74,14 @@ devbox proxmox --create-vm \
 -vm_user my_user \
 -vm_pass mypass \
 -vm_pub_keys ~/.ssh/id_rsa.pub \
+-sockets 1 \
+-cores 1 \
+-disk_size 30G \
 -vm_ip 10.10.100.3 \
 -vm_netmask 24 \
 -gateway 10.10.100.1 \
 -vm_name myvm \
--pool test_pool \
--sockets 1 \
--cores 1
+-pool test_pool 
 ```
 
 <details> <summary>Expand Logs</summary>  

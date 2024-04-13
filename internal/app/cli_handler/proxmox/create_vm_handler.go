@@ -25,8 +25,8 @@ func CreateVmHandler(argsMap map[string]string) {
 		CiPassword:  argsMap["vm_pass"],
 		SshKeysFile: argsMap["vm_pub_keys"],
 		Ipconfig:    ipconfig,
-		Cores:  argsMap["cores"],
-		Sockets: argsMap["sockets"],
+		Cores:       argsMap["cores"],
+		Sockets:     argsMap["sockets"],
 	}
 
 	vmClone := proxmox.VmClone{
@@ -37,7 +37,12 @@ func CreateVmHandler(argsMap map[string]string) {
 		Pool:    argsMap["pool"],
 	}
 
-	createVmUseCase := proxmox.NewCreateVmUseCase(ticket, ciConfig, vmClone)
+	vmDiskSize := proxmox.DiskSize{
+		Size: argsMap["dizeSize"],
+		Disk: "scsi0",
+	}
+
+	createVmUseCase := proxmox.NewCreateVmUseCase(ticket, ciConfig, vmClone, vmDiskSize)
 	createVmUseCase.Execute()
 
 }

@@ -39,6 +39,7 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	var pool string
 	var cores string
 	var sockets string
+	var dizeSize string
 
 	templateCmd := flag.NewFlagSet("common", flag.ExitOnError)
 
@@ -50,6 +51,7 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	templateCmd.StringVar(&vm_ip, "vm_ip", "", "IP address to be configured in the VM")
 	templateCmd.StringVar(&cores, "cores", "", "How many CPU cores")
 	templateCmd.StringVar(&sockets, "sockets", "", "How many CPU sockets")
+	templateCmd.StringVar(&dizeSize, "disk_size", "", "How many CPU sockets")
 	templateCmd.StringVar(&vm_netmask, "vm_netmask", "", "Netmask in decimal format, example: 24")
 	templateCmd.StringVar(&gateway, "gateway", "", "Gateway IP")
 	templateCmd.StringVar(&vm_template_id, "vm_template_id", "", "Storage vm_netmask to store the template")
@@ -69,7 +71,7 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 		builder.WriteString("export PROXMOX_ENDPOINT='<https://PROXMOX-IP:PORT>'\nexport PROXMOX_NODE='<PROXMOX_NODE>'\nexport PROXMOX_USERNAME='<PROXMOX_USERNAME>'\nexport PROXMOX_PASSWORD='<PROXMOX_PASSWORD>'\n\n")
 
 		builder.WriteString("Examples: \n\n")
-		builder.WriteString("$ devbox proxmox --create-vm -vm_template_id 1111 -vm_id 1112 -vm_user my_user -vm_pass mypass -sockets 1 -cores 1 -vm_pub_keys ~/.ssh/id_rsa.pub -vm_ip 10.10.100.3 -vm_netmask 24 -gateway 10.10.100.1 -vm_name myvm -pool test_pool\n")
+		builder.WriteString("$ devbox proxmox --create-vm -vm_template_id 1111 -vm_id 1112 -vm_user my_user -vm_pass mypass -sockets 1 -cores 1 -disk_size 30G -vm_pub_keys ~/.ssh/id_rsa.pub -vm_ip 10.10.100.3 -vm_netmask 24 -gateway 10.10.100.1 -vm_name myvm -pool test_pool\n")
 		fmt.Println(builder.String())
 	}
 
@@ -175,6 +177,10 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	}
 	if sockets != "" {
 		argsMap["sockets"] = sockets
+	}
+
+	if dizeSize != "" {
+		argsMap["dizeSize"] = dizeSize
 	}
 
 	return argsMap

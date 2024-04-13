@@ -39,17 +39,24 @@ type CiConfig struct {
 	Sockets     string `json:"sockets,omitempty"`
 }
 
-type CreateVmUseCase struct {
-	ticket   *entity.TicketData
-	ciConfig CiConfig
-	vmClone  VmClone
+type DiskSize struct {
+	Size string `json:"size"`
+	Disk string `json:"disk"`
 }
 
-func NewCreateVmUseCase(ticket *entity.TicketData, ciConfig CiConfig, vmClone VmClone) *CreateVmUseCase {
+type CreateVmUseCase struct {
+	ticket     *entity.TicketData
+	ciConfig   CiConfig
+	vmClone    VmClone
+	vmDiskSize DiskSize
+}
+
+func NewCreateVmUseCase(ticket *entity.TicketData, ciConfig CiConfig, vmClone VmClone, vmDiskSize DiskSize) *CreateVmUseCase {
 	return &CreateVmUseCase{
-		ticket:   ticket,
-		ciConfig: ciConfig,
-		vmClone:  vmClone,
+		ticket:     ticket,
+		ciConfig:   ciConfig,
+		vmClone:    vmClone,
+		vmDiskSize: vmDiskSize,
 	}
 }
 
@@ -64,6 +71,13 @@ func (u *CreateVmUseCase) Execute() {
 	if u.ciConfig.CiPassword != "" || u.ciConfig.CiUser != "" || u.ciConfig.Ipconfig != "" || u.ciConfig.SshKeysFile != "" {
 		u.configCloudInit()
 	}
+
+
+	if u.vmDiskSize.Size != ""{
+		u.resizeDisk()
+	}
+	
+
 	u.start()
 
 }
@@ -157,6 +171,30 @@ func (u CreateVmUseCase) configCloudInit() {
 	httpReq := rest.HttpRequest{
 		Timeout:       10,
 		EndPoint:      fmt.Sprintf("%s/api2/json/nodes/%s/qemu/%s/config", u.ticket.Host, u.vmClone.Node, u.vmClone.NewVmId),
+		Method:        "PUT",
+		AcceptedCodes: []int{200},
+		Data:          &struct{}{},
+		Body:          body,
+		Cookie: &http.Cookie{
+			Name:  "PVEAuthCookie",
+			Value: u.ticket.Ticket,
+		},
+		Header: map[string]string{
+			"CSRFPreventionToken": u.ticket.CSRFPreventionToken,
+			"Content-Type":        "application/json",
+		},
+	}
+
+	httpReq.Execute()
+
+}
+
+func (u CreateVmUseCase) resizeDisk() {
+
+	body, _ := json.Marshal(u.vmDiskSize)
+	httpReq := rest.HttpRequest{
+		Timeout:       10,
+		EndPoint:      fmt.Sprintf("%s/api2/json/nodes/%s/qemu/%s/resize", u.ticket.Host, u.vmClone.Node, u.vmClone.NewVmId),
 		Method:        "PUT",
 		AcceptedCodes: []int{200},
 		Data:          &struct{}{},

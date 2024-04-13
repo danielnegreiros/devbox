@@ -34,8 +34,8 @@ profile:
 	go test -bench=. ./...
 
 build:
-	$.go build -o devbox cmd/proxmox/main.go
-	sudo cp devbox /usr/local/bin/
+	go build -o devbox cmd/proxmox/main.go
+	sudo mv devbox /usr/local/bin/
 
 all: tidy lint test coverage format profile build
 
