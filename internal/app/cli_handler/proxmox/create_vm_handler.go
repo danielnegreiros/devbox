@@ -25,6 +25,8 @@ func CreateVmHandler(argsMap map[string]string) {
 		CiPassword:  argsMap["vm_pass"],
 		SshKeysFile: argsMap["vm_pub_keys"],
 		Ipconfig:    ipconfig,
+		Cores:  argsMap["cores"],
+		Sockets: argsMap["sockets"],
 	}
 
 	vmClone := proxmox.VmClone{

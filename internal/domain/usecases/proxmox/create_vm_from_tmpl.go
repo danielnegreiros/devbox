@@ -35,6 +35,8 @@ type CiConfig struct {
 	SshKeysFile string `json:"-"`
 	Ipconfig    string `json:"ipconfig0,omitempty"`
 	SshKeys     string `json:"sshkeys,omitempty"`
+	Cores       string `json:"cores,omitempty"`
+	Sockets     string `json:"sockets,omitempty"`
 }
 
 type CreateVmUseCase struct {

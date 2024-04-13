@@ -33,7 +33,11 @@ format:
 profile:
 	go test -bench=. ./...
 
-all: tidy lint test coverage format profile
+build:
+	$.go build -o devbox cmd/proxmox/main.go
+	sudo cp devbox /usr/local/bin/
+
+all: tidy lint test coverage format profile build
 
 # Ensure golangci-lint is installed
 $(GOLANGCI_LINT):

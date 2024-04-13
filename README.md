@@ -69,7 +69,7 @@ devbox proxmox --create-template-cloud-init \
 
 ```bash
 devbox proxmox --create-vm \
--vm_template_id 1111 \
+-vm_template_id 900 \
 -vm_id 1112 \
 -vm_user my_user \
 -vm_pass mypass \
@@ -78,7 +78,9 @@ devbox proxmox --create-vm \
 -vm_netmask 24 \
 -gateway 10.10.100.1 \
 -vm_name myvm \
--pool test_pool
+-pool test_pool \
+-sockets 1 \
+-cores 1
 ```
 
 <details> <summary>Expand Logs</summary>  

@@ -37,6 +37,8 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	var vm_name string
 	var node string
 	var pool string
+	var cores string
+	var sockets string
 
 	templateCmd := flag.NewFlagSet("common", flag.ExitOnError)
 
@@ -46,6 +48,8 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	templateCmd.StringVar(&vm_pass, "vm_pass", "", "Password to be initialized for the user")
 	templateCmd.StringVar(&vm_pub_keys, "vm_pub_keys", "", "ssh public key location for your user")
 	templateCmd.StringVar(&vm_ip, "vm_ip", "", "IP address to be configured in the VM")
+	templateCmd.StringVar(&cores, "cores", "", "How many CPU cores")
+	templateCmd.StringVar(&sockets, "sockets", "", "How many CPU sockets")
 	templateCmd.StringVar(&vm_netmask, "vm_netmask", "", "Netmask in decimal format, example: 24")
 	templateCmd.StringVar(&gateway, "gateway", "", "Gateway IP")
 	templateCmd.StringVar(&vm_template_id, "vm_template_id", "", "Storage vm_netmask to store the template")
@@ -64,10 +68,8 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 		builder.WriteString("Setting Variables:\n\n")
 		builder.WriteString("export PROXMOX_ENDPOINT='<https://PROXMOX-IP:PORT>'\nexport PROXMOX_NODE='<PROXMOX_NODE>'\nexport PROXMOX_USERNAME='<PROXMOX_USERNAME>'\nexport PROXMOX_PASSWORD='<PROXMOX_PASSWORD>'\n\n")
 
-		builder.WriteString("Examples: \n")
-		builder.WriteString("$ go run cmd/proxmox/main.go template -vm_user create -vm_pub_keys fedora-38 -vm_ip 1111  -vm_netmask fedora-38-tmpl  -vm_template_id local\n\n")
-		builder.WriteString("$ go run cmd/proxmox/main.go template -host <prox-host> -vm_pass 22 -user root -password <pass> -vm_user create -vm_pub_keys ubuntu-latest -vm_ip <template-vm_ip> -vm_netmask ubuntu-template-vm_netmask -vm_template_id <vm_template_id>\n\n")
-		builder.WriteString("$ go run cmd/proxmox/main.go template -host <prox-host> -vm_pass 22 -user root -password <pass> -vm_user create -vm_pub_keys fedora-38 -vm_ip <template-vm_ip> -vm_netmask ubuntu-template-vm_netmask -vm_template_id <vm_template_id>\n")
+		builder.WriteString("Examples: \n\n")
+		builder.WriteString("$ devbox proxmox --create-vm -vm_template_id 1111 -vm_id 1112 -vm_user my_user -vm_pass mypass -sockets 1 -cores 1 -vm_pub_keys ~/.ssh/id_rsa.pub -vm_ip 10.10.100.3 -vm_netmask 24 -gateway 10.10.100.1 -vm_name myvm -pool test_pool\n")
 		fmt.Println(builder.String())
 	}
 
@@ -166,6 +168,13 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	}
 	if pool != "" {
 		argsMap["pool"] = pool
+	}
+
+	if cores != "" {
+		argsMap["cores"] = cores
+	}
+	if sockets != "" {
+		argsMap["sockets"] = sockets
 	}
 
 	return argsMap
