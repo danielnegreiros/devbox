@@ -13,6 +13,10 @@ import (
 	"github.com/danielnegreiros/go-proxmox-cli/pkg/modules/rest"
 )
 
+const contentTypeValue = "application/json"
+const contentTypeKey = "Content-Type"
+
+
 type PoolsData struct {
 	Poolid string `json:"poolid"`
 }
@@ -124,7 +128,7 @@ func (u *CreateVmUseCase) createPool() int {
 		},
 		Header: map[string]string{
 			"CSRFPreventionToken": u.ticket.CSRFPreventionToken,
-			"Content-Type":        "application/json",
+			contentTypeKey:        contentTypeValue,
 		},
 	}
 
@@ -149,7 +153,7 @@ func (u CreateVmUseCase) createVm() {
 		},
 		Header: map[string]string{
 			"CSRFPreventionToken": u.ticket.CSRFPreventionToken,
-			"Content-Type":        "application/json",
+			contentTypeKey:        contentTypeValue,
 		},
 	}
 
@@ -181,7 +185,7 @@ func (u CreateVmUseCase) configCloudInit() {
 		},
 		Header: map[string]string{
 			"CSRFPreventionToken": u.ticket.CSRFPreventionToken,
-			"Content-Type":        "application/json",
+			contentTypeKey:        contentTypeValue,
 		},
 	}
 
@@ -205,7 +209,7 @@ func (u CreateVmUseCase) resizeDisk() {
 		},
 		Header: map[string]string{
 			"CSRFPreventionToken": u.ticket.CSRFPreventionToken,
-			"Content-Type":        "application/json",
+			contentTypeKey:        contentTypeValue,
 		},
 	}
 

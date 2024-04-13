@@ -37,6 +37,13 @@ build:
 	go build -o devbox cmd/proxmox/main.go
 	sudo mv devbox /usr/local/bin/
 
+sonnar:
+	/home/daniel/Projects/sonar-scanner-5.0.1.3006-linux/bin/sonar-scanner \
+	-Dsonar.projectKey=devbox \
+	-Dsonar.sources=. \
+	-Dsonar.host.url=http://10.10.100.200:9000 \
+	-Dsonar.token=${DEVBOXSONNAR}
+
 all: tidy lint test coverage format profile build
 
 # Ensure golangci-lint is installed

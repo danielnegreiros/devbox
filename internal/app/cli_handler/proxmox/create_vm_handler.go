@@ -38,7 +38,7 @@ func CreateVmHandler(argsMap map[string]string) {
 	}
 
 	vmDiskSize := proxmox.DiskSize{
-		Size: argsMap["dizeSize"],
+		Size: argsMap["diskSize"],
 		Disk: "scsi0",
 	}
 

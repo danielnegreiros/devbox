@@ -1,0 +1,6 @@
+projectKey=devbox
+serverUrl=http://10.10.100.200:9000
+serverVersion=10.4.0.87286
+dashboardUrl=http://10.10.100.200:9000/dashboard?id=devbox
+ceTaskId=3db89ca0-b916-4998-b98b-e16d79bb4437
+ceTaskUrl=http://10.10.100.200:9000/api/ce/task?id=3db89ca0-b916-4998-b98b-e16d79bb4437
