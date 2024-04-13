@@ -13,7 +13,7 @@ Read desired use case documentation for more information and proper usage
 - Installation
 
 ```bash
-sudo wget -O /usr/local/bin/devbox https://github.com/danielnegreiros/devbox/releases/download/v0.1.0/devbox
+sudo wget -O /usr/local/bin/devbox https://github.com/danielnegreiros/devbox/releases/download/latest/devbox
 sudo chmod +x /usr/local/bin/devbox
 ```
 
