@@ -76,6 +76,7 @@ devbox proxmox --create-vm \
 -vm_pub_keys ~/.ssh/id_rsa.pub \
 -sockets 1 \
 -cores 1 \
+-memory 4096 \
 -disk_size 30G \
 -vm_ip 10.10.100.3 \
 -vm_netmask 24 \

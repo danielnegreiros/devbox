@@ -28,6 +28,7 @@ type Config struct {
 	Cores        string
 	Sockets      string
 	DiskSize     string
+	Memory       string
 }
 
 func init() {
@@ -55,6 +56,7 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 	templateCmd.StringVar(&cfg.Cores, "cores", "", "How many CPU cores")
 	templateCmd.StringVar(&cfg.Sockets, "sockets", "", "How many CPU sockets")
 	templateCmd.StringVar(&cfg.DiskSize, "disk_size", "", "How many CPU sockets")
+	templateCmd.StringVar(&cfg.Memory, "memory", "", "How much memory in KB")
 	templateCmd.StringVar(&cfg.VMNetmask, "vm_netmask", "", "Netmask in decimal format, example: 24")
 	templateCmd.StringVar(&cfg.Gateway, "gateway", "", "Gateway IP")
 	templateCmd.StringVar(&cfg.VMTemplateID, "vm_template_id", "", "Storage vm_netmask to store the template")
@@ -74,7 +76,7 @@ func ParseVmCreateTmpl(args []string) map[string]string {
 		builder.WriteString("export PROXMOX_ENDPOINT='<https://PROXMOX-IP:PORT>'\nexport PROXMOX_NODE='<PROXMOX_NODE>'\nexport PROXMOX_USERNAME='<PROXMOX_USERNAME>'\nexport PROXMOX_PASSWORD='<PROXMOX_PASSWORD>'\n\n")
 
 		builder.WriteString("Examples: \n\n")
-		builder.WriteString("$ devbox proxmox --create-vm -vm_template_id 1111 -vm_id 1112 -vm_user my_user -vm_pass mypass -sockets 1 -cores 1 -disk_size 30G -vm_pub_keys ~/.ssh/id_rsa.pub -vm_ip 10.10.100.3 -vm_netmask 24 -gateway 10.10.100.1 -vm_name myvm -pool test_pool\n")
+		builder.WriteString("$ devbox proxmox --create-vm -vm_template_id 1111 -vm_id 1112 -vm_user my_user -vm_pass mypass -sockets 1 -cores 1 -memory 4096 -disk_size 30G -vm_pub_keys ~/.ssh/id_rsa.pub -vm_ip 10.10.100.3 -vm_netmask 24 -gateway 10.10.100.1 -vm_name myvm -pool test_pool\n")
 		fmt.Println(builder.String())
 	}
 
@@ -188,6 +190,10 @@ func mountData(cfg Config) map[string]string {
 
 	if cfg.DiskSize != "" {
 		argsMap["diskSize"] = cfg.DiskSize
+	}
+
+	if cfg.Memory != "" {
+		argsMap["memory"] = cfg.Memory
 	}
 
 	return argsMap

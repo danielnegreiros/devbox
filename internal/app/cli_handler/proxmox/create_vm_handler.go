@@ -27,6 +27,7 @@ func CreateVmHandler(argsMap map[string]string) {
 		Ipconfig:    ipconfig,
 		Cores:       argsMap["cores"],
 		Sockets:     argsMap["sockets"],
+		Memory:      argsMap["memory"],
 	}
 
 	vmClone := proxmox.VmClone{

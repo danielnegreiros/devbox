@@ -16,7 +16,6 @@ import (
 const contentTypeValue = "application/json"
 const contentTypeKey = "Content-Type"
 
-
 type PoolsData struct {
 	Poolid string `json:"poolid"`
 }
@@ -41,6 +40,7 @@ type CiConfig struct {
 	SshKeys     string `json:"sshkeys,omitempty"`
 	Cores       string `json:"cores,omitempty"`
 	Sockets     string `json:"sockets,omitempty"`
+	Memory      string `json:"memory,omitempty"`
 }
 
 type DiskSize struct {
@@ -76,11 +76,9 @@ func (u *CreateVmUseCase) Execute() {
 		u.configCloudInit()
 	}
 
-
-	if u.vmDiskSize.Size != ""{
+	if u.vmDiskSize.Size != "" {
 		u.resizeDisk()
 	}
-	
 
 	u.start()
 
