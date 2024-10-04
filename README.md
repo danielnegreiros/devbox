@@ -39,7 +39,7 @@ export PROXMOX_PASSWORD='<PASS>'
 ```bash
 devbox proxmox --create-template-cloud-init \
 -action create \
--image ubuntu-latest \
+-image ubuntu-24 \
 -id 1111  \
 -name ubuntu-tmpl  \
 -storage local \
